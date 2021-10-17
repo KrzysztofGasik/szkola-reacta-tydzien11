@@ -5,11 +5,17 @@ import { resetUsers } from "../../Users/duck/actions";
 
 import classes from "../../UI/Button.module.css";
 import Button from "../../UI/Button";
-import homeClasses from "./Home.module.css"
+import Users from "../../Users/components/Users";
+import homeClasses from "./Home.module.css";
 
-function Home({ fetchUsers, addUser, resetUsers }) {
+function Home({
+  fetchUsers,
+  addUser,
+  resetUsers
+}) {
   return (
     <div className={homeClasses.wrapper}>
+      <div>
       <Button
         label="Load users"
         onClick={fetchUsers}
@@ -25,20 +31,19 @@ function Home({ fetchUsers, addUser, resetUsers }) {
         onClick={resetUsers}
         cssClass={`${classes.button} ${classes.buttonReset}`}
       />
+      </div>
+      <Users />
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
   users: state.users.users,
-  isLoading: state.users.isLoading,
-  isError: state.users.isError,
-  isReset: state.users.isReset,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchUsers: () => dispatch(fetchUsers(10, "fetch")),
   addUser: () => dispatch(fetchUsers(1, "add")),
-  resetUsers: () => dispatch(resetUsers()),
+  resetUsers: () => dispatch(resetUsers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
